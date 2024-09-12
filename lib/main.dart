@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/Intro.dart';
-import 'Login Page/login_sp.dart';
 void main(){
   runApp(const MyApp());
 }

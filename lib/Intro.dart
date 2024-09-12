@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/Login%20Page/login_dep.dart';
 import 'package:health_app/Login%20Page/login_sp.dart';
+import 'package:health_app/Screens/User_Screen/user_screen.dart';
 import 'Home_page.dart';
 
 void main() {
@@ -107,6 +108,30 @@ class _IntroScreenState extends State<IntroScreen> {
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepPurple,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 32.0),
+                      elevation: 5,
+                      shadowColor: Colors.black.withOpacity(0.3),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const UserScreen(title: 'MediMitra',)),
+                      );
+                    },
+                    icon: Icon(Icons.people, color: Colors.white),
+                    label: const Text(
+                      'Continue as Citizen',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),

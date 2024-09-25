@@ -9,8 +9,10 @@ import 'package:health_app/Screens/data_entry.dart';
 import 'package:health_app/Firebase/Profile.dart';
 import 'package:health_app/Notification.dart';
 import 'package:health_app/drawer.dart';
-
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:health_app/Login%20Page/login_dep.dart';
 import 'package:health_app/Login%20Page/login_sp.dart';
 import 'package:health_app/Screens/User_Screen/user_screen.dart';
-import 'Home_page.dart';
-
 void main() {
   runApp(MyApp());
 }

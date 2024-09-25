@@ -51,19 +51,18 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                
                 icon: Icon(Icons.pie_chart),
-                label: 'Pie Chart',
+                label: 'Disease Spread',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.show_chart),
-                label: 'Line Chart',
+                label: 'Statewise Data',
               ),
             ],
             currentIndex: _selectedIndex,
             selectedItemColor: Colors.white,
             backgroundColor: Colors.deepPurple,
-             unselectedItemColor: Colors.grey,
+            unselectedItemColor: Colors.grey,
             onTap: _onItemTapped,
           ),
           Expanded(
@@ -79,10 +78,10 @@ class PieChartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map<String, double> dataMap = {
-      "Food Items": 18.47,
-      "Clothes": 17.70,
-      "Technology": 4.25,
-      "Cosmetics": 3.51,
+      "Malaria": 18.47,
+      "Dengue": 17.70,
+      "Tuberculosis": 4.25,
+      "Cholera": 3.51,
       "Other": 2.83,
     };
 
@@ -114,7 +113,7 @@ class PieChartScreen extends StatelessWidget {
         dataMap: dataMap,
         colorList: colorList,
         chartRadius: MediaQuery.of(context).size.width / 2,
-        centerText: "Budget",
+        centerText: "Health Issues",
         ringStrokeWidth: 24,
         animationDuration: const Duration(seconds: 3),
         chartValuesOptions: const ChartValuesOptions(
@@ -138,17 +137,17 @@ class LineChartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<FlSpot> leftData = [
-      const FlSpot(0, 5),
-      const FlSpot(1, 10),
-      const FlSpot(2, 15),
-      const FlSpot(3, 20),
+      const FlSpot(0, 5),  // Bihar
+      const FlSpot(1, 10), // Uttar Pradesh
+      const FlSpot(2, 15), // Madhya Pradesh
+      const FlSpot(3, 20), // Rajasthan
     ];
 
     List<FlSpot> rightData = [
-      const FlSpot(0, 100),
-      const FlSpot(1, 200),
-      const FlSpot(2, 300),
-      const FlSpot(3, 400),
+      const FlSpot(0, 100), // Maharashtra
+      const FlSpot(1, 150), // Gujarat
+      const FlSpot(2, 250), // Karnataka
+      const FlSpot(3, 300), // Tamil Nadu
     ];
 
     return Center(
@@ -156,16 +155,35 @@ class LineChartScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: LineChart(
           LineChartData(
-            gridData: const FlGridData(show: false),
+            gridData: const FlGridData(show: true),
             titlesData: FlTitlesData(
               bottomTitles: AxisTitles(
+                axisNameWidget: const Text("States"),
                 sideTitles: SideTitles(
-                  showTitles: false,
+                  showTitles: true,
+                  getTitlesWidget: (value, meta) {
+                    switch (value.toInt()) {
+                      case 0:
+                        return const Text('Bihar');
+                      case 1:
+                        return const Text('U.P.');
+                      case 2:
+                        return const Text('M.P.');
+                      case 3:
+                        return const Text('Raj.');
+                      default:
+                        return const Text('');
+                    }
+                  },
                 ),
               ),
               leftTitles: AxisTitles(
+                axisNameWidget: const Text("Cases (thousands)"),
                 sideTitles: SideTitles(
-                  showTitles: false,
+                  showTitles: true,
+                  getTitlesWidget: (value, meta) {
+                    return Text(value.toInt().toString());
+                  },
                 ),
               ),
               rightTitles: AxisTitles(
@@ -181,20 +199,20 @@ class LineChartScreen extends StatelessWidget {
             minX: 0,
             maxX: 3,
             minY: 0,
-            maxY: 25,
+            maxY: 350,
             lineBarsData: [
               LineChartBarData(
                 spots: leftData,
                 isCurved: true,
                 color: Colors.blue,
-                dotData: FlDotData(show: false),
+                dotData: FlDotData(show: true),
                 belowBarData: BarAreaData(show: false),
               ),
               LineChartBarData(
                 spots: rightData,
                 isCurved: true,
                 color: Colors.red,
-                dotData: FlDotData(show: false),
+                dotData: FlDotData(show: true),
                 belowBarData: BarAreaData(show: false),
               ),
             ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:health_app/Screens/User_Screen/user_screen.dart';
 import 'package:health_app/home_page.dart';
 
 void main() async {
@@ -38,7 +39,6 @@ class _LoginPageState extends State<LoginPage> {
         // If the user is already signed in, prompt to sign out or choose a different account
         await _googleSignIn.signOut();
       }
-      
       // Prompt the user to choose an account
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser != null) {
@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
 
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => MyHomePage(title: '',)),
+          MaterialPageRoute(builder: (context) => UserScreen(title: 'MediMitra',)),
         );
       } else {
         print("Sign-in aborted by user");
@@ -66,29 +66,30 @@ class _LoginPageState extends State<LoginPage> {
   void _continueAsGuest() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => MyHomePage(title: 'HealthVista')),
+      MaterialPageRoute(builder: (context) => UserScreen(title: 'HealthVista')),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.deepPurple[50], 
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             if (snapshot.hasData) {
-              return MyHomePage(title: 'HealthVista');
+              return MyHomePage(title: 'MediMitra');
             } else {
               return Column(
                 children: [
                   Expanded(
-                    flex: 8, 
+                    flex: 8,
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
                         Image.network(
-                          'https://i.pinimg.com/originals/f0/fc/9b/f0fc9bbd1034c2723392d41c1e062b78.jpg',
+                          'https://www.qupapp.com/assets/img/doctor-1.jpg',
                           fit: BoxFit.cover,
                         ),
                       ],
@@ -99,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [Colors.blue.shade200, Colors.blue.shade500],
+                          colors: [Colors.deepPurple.shade50, Colors.purple.shade50],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                         ),
@@ -109,11 +110,11 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             const Text(
-                              'Welcome to HealthVista',
+                              'Welcome to MediMitra',
                               style: TextStyle(
                                 fontSize: 30.0,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                color: Colors.deepPurple,
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -129,6 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                                 style: TextStyle(
                                   fontSize: 18.0,
                                   fontWeight: FontWeight.bold,
+                                  color: Colors.deepPurple,
                                 ),
                               ),
                               onPressed: _handleSignIn,
@@ -138,6 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
+                                backgroundColor: Colors.white, 
                               ),
                             ),
                             SizedBox(height: 20.0),
@@ -159,7 +162,6 @@ class _LoginPageState extends State<LoginPage> {
                               style: ElevatedButton.styleFrom(
                                 minimumSize: Size(250, 50),
                                 backgroundColor: Colors.black,
-                                side: BorderSide(color: Colors.black),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),

@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Error'),
+          title: Text('Error',style: TextStyle(fontSize: 25),),
           content: Text('Invalid email or password'),
           actions: [
             TextButton(

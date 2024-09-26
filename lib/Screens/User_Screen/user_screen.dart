@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_app/Firebase/Profile.dart';
 import 'package:health_app/Login%20Page/login_sp.dart';
 import 'package:health_app/Screens/Intro_Home_Screen.dart';
 import 'package:health_app/Screens/Google_map.dart';
@@ -87,6 +88,18 @@ class _UserScreenState extends State<UserScreen> {
               );
             },
           ),
+           IconButton(
+            icon: const Icon(
+              Icons.person,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfilePage()),
+              );
+            },
+          ),
         ],
       ),
       drawer: AppDrawer(),
@@ -99,7 +112,7 @@ class _UserScreenState extends State<UserScreen> {
           ),
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.robot),
-            label: 'Ask Gemini',
+            label: 'Ask Mitra',
           ),
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.mapMarkedAlt),

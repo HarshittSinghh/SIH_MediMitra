@@ -14,12 +14,14 @@ class _ProfilePageState extends State<ProfilePage> {
   final phoneController = TextEditingController();
   final genderController = TextEditingController();
   final dobController = TextEditingController();
+  String? email;
 
   @override
   void initState() {
     super.initState();
     _fetchProfileImage();
     _fetchUserDetails();
+    _createUserDocument();
   }
 
   @override
@@ -37,6 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
         final profileImageUrl = user.photoURL;
         setState(() {
           _profileImageUrl = profileImageUrl;
+          email = user.email;
         });
       }
     } catch (e) {
@@ -48,16 +51,35 @@ class _ProfilePageState extends State<ProfilePage> {
     try {
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        final userDoc = await FirebaseFirestore.instance.collection('User').doc(user.uid).get();
+        final userDoc = await FirebaseFirestore.instance.collection('Details').doc(user.uid).get();
         final data = userDoc.data();
         if (data != null) {
-          phoneController.text = data['mobile'] ?? '';
-          genderController.text = data['gender'] ?? '';
-          dobController.text = data['dob'] ?? '';
+          setState(() {
+            phoneController.text = data['mobile'] ?? '';
+            genderController.text = data['gender'] ?? '';
+            dobController.text = data['dob'] ?? '';
+          });
+        } else {
+          print("No data found for user: ${user.uid}");
         }
       }
     } catch (e) {
       print("Failed to fetch user details: $e");
+    }
+  }
+
+  Future<void> _createUserDocument() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final userDoc = await FirebaseFirestore.instance.collection('Details').doc(user.uid).get();
+      if (!userDoc.exists) {
+        await FirebaseFirestore.instance.collection('Details').doc(user.uid).set({
+          'mobile': '',
+          'gender': '',
+          'dob': '',
+          'email': user.email,
+        });
+      }
     }
   }
 
@@ -66,7 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Edit Profile'),
+          title: Text('Edit Profile',style:TextStyle(fontSize: 25,),),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -92,7 +114,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 final user = FirebaseAuth.instance.currentUser;
                 if (user != null) {
                   try {
-                    await FirebaseFirestore.instance.collection('User').doc(user.uid).update({
+                    await FirebaseFirestore.instance.collection('Details').doc(user.uid).update({
                       'mobile': phoneController.text,
                       'gender': genderController.text,
                       'dob': dobController.text,
@@ -100,6 +122,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Profile updated successfully')),
                     );
+                    _fetchUserDetails();
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Failed to update profile: $e')),
@@ -163,9 +186,12 @@ class _ProfilePageState extends State<ProfilePage> {
           backgroundColor: Colors.deepPurple,
           foregroundColor: Colors.white,
           title: Text(
-            "Health Vista",
-            style: GoogleFonts.dancingScript(
-                fontWeight: FontWeight.w900, fontSize: 28, color: Colors.white),
+            "MediMitra",
+            style:TextStyle(
+              fontWeight: FontWeight.w900,
+              fontSize: 28,
+              color: Colors.white,
+            ),
           ),
         ),
         body: Center(
@@ -183,7 +209,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => LoginPage()), 
+                    MaterialPageRoute(builder: (context) => LoginPage()),
                   );
                 },
                 child: Text('Login'),
@@ -202,9 +228,11 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
         title: Text(
-          "Health Vista",
-          style: GoogleFonts.dancingScript(
-              fontWeight: FontWeight.w900, fontSize: 28, color: Colors.white),
+          "MediMitra",
+          style: TextStyle(
+            fontSize: 25,
+            color: Colors.white,
+          ),
         ),
         actions: [
           PopupMenuButton<String>(
@@ -253,102 +281,95 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
-
-            Container(height: 30),
+            Container(height: 20),
+            // Centered User Info
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Name:',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        user.displayName ?? 'No Name',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ],
+                  Text(
+                    'Name: ${user.displayName ?? 'No Name'}',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Email:',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        user.email ?? 'No Email',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black54),
-                      ),
-                    ],
+                  Text(
+                    'Email: ${user.email ?? 'No Email'}',
+                    style: TextStyle(fontSize: 20, color: Colors.black54, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
                   ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: _editProfile,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepPurple,
+                      foregroundColor: Colors.white,
+                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    ),
+                    child: Text('Edit Profile', style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
+                  ),
+                  SizedBox(height: 20),
                 ],
               ),
             ),
-            Container(height: 20),
-            SizedBox(
-              width: 200,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: _editProfile,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurple,
-                  side: BorderSide.none,
-                  shape: const StadiumBorder(),
+            // Additional Details Card
+            Card(
+              elevation: 4,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.phone, color: Colors.deepPurple),
+                        SizedBox(width: 10),
+                        Text(
+                          'Contact Number:',
+                          style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      phoneController.text.isNotEmpty ? phoneController.text : 'Loading...',
+                      style: TextStyle(fontSize: 17, color: Colors.black54),
+                    ),
+                    SizedBox(height: 15),
+                    Row(
+                      children: [
+                        Icon(Icons.person, color: Colors.deepPurple),
+                        SizedBox(width: 10),
+                        Text(
+                          'Gender:',
+                          style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      genderController.text.isNotEmpty ? genderController.text : 'Loading...',
+                      style: TextStyle(fontSize: 17, color: Colors.black54),
+                    ),
+                    SizedBox(height: 15),
+                    Row(
+                      children: [
+                        Icon(Icons.cake, color: Colors.deepPurple),
+                        SizedBox(width: 10),
+                        Text(
+                          'Date of Birth:',
+                          style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      dobController.text.isNotEmpty ? dobController.text : 'Loading...',
+                      style: TextStyle(fontSize: 17, color: Colors.black54),
+                    ),
+                    SizedBox(height: 20),
+                  ],
                 ),
-                child: const Text(
-                  'Edit Profile',
-                  style: TextStyle(fontSize: 16, color: Colors.white),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20.0),
-            const Text(
-              'User Details',
-              style: TextStyle(
-                fontSize: 30.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.45,
-              padding: const EdgeInsets.all(16.0),
-              child: StreamBuilder<DocumentSnapshot>(
-                stream: FirebaseFirestore.instance.collection('User').doc(user.uid).snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  if (!snapshot.hasData || snapshot.hasError) {
-                    return Center(child: Text('Failed to load user details'));
-                  }
-
-                  final data = snapshot.data?.data() as Map<String, dynamic>?;
-
-                  return ListView(
-                    children: [
-                      ListTile(
-                        title: Text('Contact Number'),
-                        subtitle: Text(data?['mobile'] ?? 'Not available'),
-                      ),
-                      ListTile(
-                        title: Text('Gender'),
-                        subtitle: Text(data?['gender'] ?? 'Not available'),
-                      ),
-                      ListTile(
-                        title: Text('Date of Birth'),
-                        subtitle: Text(data?['dob'] ?? 'Not available'),
-                      ),
-                    ],
-                  );
-                },
               ),
             ),
           ],

@@ -120,11 +120,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.database),
-            label: 'Data Entry',
+            label: 'Data Entry', 
           ),
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.robot),
-            label: 'Ask Gemini',
+            label: 'Ask Mitra',
           ),
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.chartPie),

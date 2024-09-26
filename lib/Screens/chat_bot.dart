@@ -28,7 +28,8 @@ class _BotScreenState extends State<BotScreen> {
     _userMessage.clear();
 
     setState(() {
-      _messages.add(Message(isUser: true, message: message, date: DateTime.now()));
+      _messages
+          .add(Message(isUser: true, message: message, date: DateTime.now()));
       _isLoading = true;
     });
 
@@ -38,7 +39,10 @@ class _BotScreenState extends State<BotScreen> {
     final content = [Content.text(message)];
     final response = await model.generateContent(content);
     setState(() {
-      _messages.add(Message(isUser: false, message: response.text ?? "No response", date: DateTime.now()));
+      _messages.add(Message(
+          isUser: false,
+          message: response.text ?? "No response",
+          date: DateTime.now()));
       _isLoading = false;
     });
   }
@@ -67,9 +71,8 @@ class _BotScreenState extends State<BotScreen> {
       await Future.delayed(Duration(seconds: 1));
 
       // Gemini API response for image
-      final response = await model.generateContent(
-        [Content.text("Image sent")]
-      );
+      final response =
+          await model.generateContent([Content.text("Image sent")]);
 
       setState(() {
         _messages.add(Message(
@@ -86,16 +89,16 @@ class _BotScreenState extends State<BotScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Enter Your Symptoms Below..!!',
-          style: TextStyle(
-            color: Colors.deepPurple,
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
+        toolbarHeight: 200, 
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                  'https://scoop.market.us/wp-content/uploads/2023/10/ai-in-the-healthcare.jpg'), 
+              fit: BoxFit.cover, 
+            ),
           ),
         ),
-        backgroundColor: Colors.grey[50],
-        elevation: 0,
       ),
       body: Stack(
         children: [
@@ -146,7 +149,7 @@ class _BotScreenState extends State<BotScreen> {
                             borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide.none,
                           ),
-                          hintText: "Ask Gemini...",
+                          hintText: "Ask MediMitra...",
                           hintStyle: TextStyle(color: Colors.grey[600]),
                         ),
                         maxLines: null,
@@ -222,8 +225,8 @@ class Messages extends StatelessWidget {
               ? Image.memory(
                   base64Decode(message),
                   fit: BoxFit.cover,
-                  width: 200, 
-                  height: 200, 
+                  width: 200,
+                  height: 200,
                 )
               : Text(
                   message,
@@ -252,7 +255,7 @@ class Message {
   final bool isUser;
   final String message;
   final DateTime date;
-  final bool isImage; 
+  final bool isImage;
 
   Message({
     required this.isUser,

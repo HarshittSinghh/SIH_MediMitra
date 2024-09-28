@@ -60,10 +60,17 @@ dependencies:
   dash_chat_2: ^0.0.21
   fl_chart: ^0.69.0
   pie_chart: ^5.4.0
+  flutter_launcher_icons: ^0.14.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/img/logo.png"
+  remove_alpha_ios: true
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -15,9 +15,9 @@ class LoginSV extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primaryColor: Colors.deepPurple,
+        primaryColor: const Color(0xFF7CB8C0), // Update primary color
         colorScheme: ColorScheme.light(
-          primary: Colors.deepPurple,
+          primary: const Color(0xFF7CB8C0), // Update primary color
           onPrimary: Colors.white,
           surface: Colors.white,
           onSurface: Colors.black,
@@ -25,12 +25,12 @@ class LoginSV extends StatelessWidget {
           onBackground: Colors.black,
         ),
         textTheme: TextTheme(
-          headlineSmall: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-          headlineMedium: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-          headlineLarge: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+          headlineSmall: const TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+          headlineMedium: const TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+          headlineLarge: const TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
         ),
         buttonTheme: ButtonThemeData(
-          buttonColor: Colors.deepPurple,
+          buttonColor: const Color(0xFF7CB8C0), // Update button color
           textTheme: ButtonTextTheme.primary,
         ),
       ),
@@ -67,12 +67,15 @@ class _LoginPageState extends State<LoginPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Error',style: TextStyle(fontSize: 25),),
-          content: Text('Invalid email or password'),
+          title: const Text(
+            'Error',
+            style: TextStyle(fontSize: 25),
+          ),
+          content: const Text('Invalid email or password'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         ),
@@ -97,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                     size: 64,
                     color: Theme.of(context).colorScheme.primary,
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   Text(
                     "Login",
                     style: TextStyle(
@@ -106,15 +109,15 @@ class _LoginPageState extends State<LoginPage> {
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
                   ),
-                   Text(
+                  const Text(
                     "As Super Admin",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
-                      color:Colors.grey,
+                      color: Colors.grey,
                     ),
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   TextField(
                     controller: _emailController,
                     decoration: InputDecoration(
@@ -128,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     keyboardType: TextInputType.emailAddress,
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextField(
                     controller: _passwordController,
                     decoration: InputDecoration(
@@ -142,128 +145,18 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     obscureText: true,
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   InkWell(
                     onTap: _signIn,
                     borderRadius: BorderRadius.circular(30.0),
                     child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.primary,
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                       child: Text(
                         'Sign In',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => RegisterPage()),
-                      );
-                    },
-                    child: Text(
-                      'Register',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class RegisterPage extends StatelessWidget {
-  const RegisterPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        foregroundColor: Colors.white,
-        title: Text('Register'),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.person_add_rounded,
-                    size: 64,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  SizedBox(height: 30),
-                  Text(
-                    "Register",
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onBackground,
-                    ),
-                  ),
-                  SizedBox(height: 30),
-                  TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      labelText: 'Email',
-                      labelStyle: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  SizedBox(height: 20),
-                  TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      labelText: 'Password',
-                      labelStyle: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                    ),
-                    obscureText: true,
-                  ),
-                  SizedBox(height: 30),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => IntroHomeScreen(),),
-                      );
-                    },
-                    borderRadius: BorderRadius.circular(30.0),
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary,
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      child: Text(
-                        'Register',
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.onPrimary,
                         ),

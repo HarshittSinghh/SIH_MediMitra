@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:health_app/Firebase/Login.dart' as firebase_login;
-import 'package:health_app/Login%20Page/login_dep.dart';
-import 'package:health_app/Login%20Page/login_sp.dart';
 import 'package:health_app/Notification.dart';
 
-class AppDrawer extends StatelessWidget {
+class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
@@ -17,7 +15,7 @@ class AppDrawer extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             Container(
-              color:Color(0xFF7CB8C0),
+              color: Color(0xFF7CB8C0),
               padding: const EdgeInsets.symmetric(vertical: 55, horizontal: 16),
               child: Row(
                 children: [
@@ -28,7 +26,7 @@ class AppDrawer extends StatelessWidget {
                         ? NetworkImage(user!.photoURL!)
                         : null,
                     child: user?.photoURL == null
-                        ? Icon(Icons.person, size: 30, color:Color(0xFF7CB8C0))
+                        ? Icon(Icons.person, size: 30, color: Color(0xFF7CB8C0))
                         : null,
                   ),
                   SizedBox(width: 16),
@@ -61,11 +59,11 @@ class AppDrawer extends StatelessWidget {
             ),
             SizedBox(height: 20),
             ListTile(
-              leading: Icon(Icons.notifications, color:Color(0xFF7CB8C0)),
+              leading: Icon(Icons.notifications, color: Color(0xFF7CB8C0)),
               title: const Text(
                 'Notifications',
                 style: TextStyle(
-                  color:Color(0xFF7CB8C0),
+                  color: Color(0xFF7CB8C0),
                   fontSize: 18,
                 ),
               ),
@@ -79,11 +77,11 @@ class AppDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.policy, color:Color(0xFF7CB8C0)),
+              leading: Icon(Icons.policy, color: Color(0xFF7CB8C0)),
               title: const Text(
                 'Policies',
                 style: TextStyle(
-                  color:Color(0xFF7CB8C0),
+                  color: Color(0xFF7CB8C0),
                   fontSize: 18,
                 ),
               ),
@@ -92,70 +90,23 @@ class AppDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.logout, color:Color(0xFF7CB8C0)),
+              leading: Icon(Icons.logout, color: Color(0xFF7CB8C0)),
               title: const Text(
                 'Logout',
                 style: TextStyle(
-                  color:Color(0xFF7CB8C0),
+                  color: Color(0xFF7CB8C0),
                   fontSize: 18,
                 ),
               ),
               onTap: () async {
-                // Clear session and sign out
                 await FirebaseAuth.instance.signOut();
                 Navigator.pushReplacement(
                   context,
-               MaterialPageRoute(builder: (context) => firebase_login.LoginPage()),
+                  MaterialPageRoute(builder: (context) => firebase_login.LoginPage()),
                 );
               },
-            ),
-            SizedBox(height: 20),
-            Divider(
-              color:Color(0xFF7CB8C0),
-              height: 30,
-              thickness: 1,
-              indent: 16,
-              endIndent: 16,
             ),
             SizedBox(height: 10),
-            ListTile(
-              leading: Icon(Icons.account_balance,
-                  color: Color(0xFF7CB8C0)),
-              title: const Text(
-                'Department Login',
-                style: TextStyle(
-                  color: Color(0xFF7CB8C0),
-                  fontSize: 16,
-                ),
-              ),
-              onTap: () {
-                  Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LoginDept(),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.admin_panel_settings,
-                  color:Color(0xFF7CB8C0)), 
-              title: const Text(
-                'Admin Login',
-                style: TextStyle(
-                  color:Color(0xFF7CB8C0),
-                  fontSize: 16,
-                ),
-              ),
-              onTap: () {
-                    Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LoginSV(),
-                  ),
-                );
-              },
-            ),
             Divider(
               color: Color(0xFF7CB8C0),
               height: 30,
@@ -167,7 +118,7 @@ class AppDrawer extends StatelessWidget {
               title: const Text(
                 'Help & Support',
                 style: TextStyle(
-                  color:Color(0xFF7CB8C0),
+                  color: Color(0xFF7CB8C0),
                   fontSize: 16,
                 ),
               ),

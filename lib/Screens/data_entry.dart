@@ -18,7 +18,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+        primarySwatch:const MaterialColor(
+          0xFF7CB8C0,
+          <int, Color>{
+            50: Color(0xFFE0F4F5),
+            100: Color(0xFFB3E3E6),
+            200: Color(0xFF80CFD6),
+            300: Color(0xFF4DBBC6),
+            400: Color(0xFF26AEBB),
+            500: Color(0xFF009DAF),
+            600: Color(0xFF008FA7),
+            700: Color(0xFF007C9B),
+            800: Color(0xFF006990),
+            900: Color(0xFF004D7B),
+          },
+        ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: DataEntry(),
@@ -31,58 +45,48 @@ class DataEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Change background color to white
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16.0,
-                mainAxisSpacing: 16.0,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  _buildCard(
+              _buildListTile(
+                context,
+                icon: Icons.add,
+                title: 'Add',
+                onTap: () {
+                  Navigator.push(
                     context,
-                    icon: Icons.add,
-                    title: 'Add',
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => AddEntry()),
-                      );
-                    },
-                    color: Colors.deepPurple, // Change color to deep purple
-                  ),
-                  _buildCard(
+                    MaterialPageRoute(builder: (context) => AddEntry()),
+                  );
+                },
+                color: Color(0xFF7CB8C0),
+              ),
+              _buildListTile(
+                context,
+                icon: Icons.edit,
+                title: 'Modify',
+                onTap: () {
+                  Navigator.push(
                     context,
-                    icon: Icons.edit,
-                    title: 'Modify',
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ModifyEntryPage()),
-                      );
-                    },
-                    color: Colors.deepPurple, // Change color to deep purple
-                  ),
-                  _buildCard(
+                    MaterialPageRoute(builder: (context) => ModifyEntryPage()),
+                  );
+                },
+                color: Color(0xFF7CB8C0),
+              ),
+              _buildListTile(
+                context,
+                icon: Icons.search,
+                title: 'Search',
+                onTap: () {
+                  Navigator.push(
                     context,
-                    icon: Icons.search,
-                    title: 'Search',
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SearchPage()),
-                      );
-                    },
-                    color: Colors.deepPurple, // Change color to deep purple
-                  ),
-                ],
+                    MaterialPageRoute(builder: (context) => SearchPage()),
+                  );
+                },
+                color: Color(0xFF7CB8C0), 
               ),
               SizedBox(height: 20),
               const Text(
@@ -90,7 +94,7 @@ class DataEntry extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
+                  color: Color(0xFF7CB8C0), 
                 ),
               ),
               SizedBox(height: 10),
@@ -135,7 +139,7 @@ class DataEntry extends StatelessWidget {
                                 style: const TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.deepPurple,
+                                  color: Color(0xFF7CB8C0),
                                 ),
                               ),
                               SizedBox(height: 5),
@@ -150,7 +154,7 @@ class DataEntry extends StatelessWidget {
                               SizedBox(height: 5),
                               Text(
                                 'Date: ${DateFormat('yyyy-MM-dd').format(timestamp.toDate())}',
-                                style:const TextStyle(
+                                style: const TextStyle(
                                   fontSize: 15,
                                   color: Colors.green,
                                   fontWeight: FontWeight.bold,
@@ -158,7 +162,7 @@ class DataEntry extends StatelessWidget {
                               ),
                               Text(
                                 'Time: ${DateFormat('hh:mm a').format(timestamp.toDate())}',
-                                style:const TextStyle(
+                                style: const TextStyle(
                                   color: Colors.green,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -178,52 +182,40 @@ class DataEntry extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(BuildContext context,
+  Widget _buildListTile(BuildContext context,
       {required IconData icon,
       required String title,
       required VoidCallback onTap,
       required Color color}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Card(
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      elevation: 8,
+      margin: EdgeInsets.symmetric(vertical: 8.0), 
+      shadowColor: Colors.grey.withOpacity(0.5),
+      child: ListTile(
+        onTap: onTap,
+        contentPadding: EdgeInsets.symmetric(vertical: 25.0, horizontal: 16.0), 
+        leading: CircleAvatar(
+          backgroundColor: color.withOpacity(0.7),
+          child: Icon(
+            icon,
+            color: Colors.white,
+            size: 28, 
+          ),
+        ),
+        title: Text(
+          title,
+          style: TextStyle(
+            fontSize: 20, // Increase font size
+            fontWeight: FontWeight.bold, // Make text bold
+            color: color,
+          ),
+        ),
+        tileColor: Color(0xFF7CB8C0).withOpacity(0.2), 
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
-        ),
-        elevation: 8,
-        shadowColor: Colors.grey.withOpacity(0.5),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [color.withOpacity(0.7), color],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 30,
-                child: Icon(
-                  icon,
-                  size: 40,
-                  color: color,
-                ),
-              ),
-              SizedBox(height: 15),
-              Text(
-                title,
-                style:const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );

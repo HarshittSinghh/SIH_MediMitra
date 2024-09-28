@@ -88,20 +88,20 @@ class _AddEntryState extends State<AddEntry> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Patient Information Form'),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Color(0xFF7CB8C0),
         foregroundColor: Colors.white,
         elevation: 5,
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.deepPurple.shade100, Colors.white],
+            colors: [Color(0xFFE0F4F5), Colors.white],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
         ),
         padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(  // Added SingleChildScrollView
+        child: SingleChildScrollView(
           child: Form(
             key: _formKey,
             child: Column(
@@ -122,7 +122,7 @@ class _AddEntryState extends State<AddEntry> {
                             style: TextStyle(
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.deepPurple),
+                                color: Color(0xFF7CB8C0)),
                           ),
                         ),
                         SizedBox(
@@ -148,7 +148,7 @@ class _AddEntryState extends State<AddEntry> {
                           child: Text('Save & Print Receipt'),
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(vertical: 15),
-                            backgroundColor: Colors.deepPurple,
+                            backgroundColor: Color(0xFF7CB8C0),
                             foregroundColor: Colors.white,
                             textStyle: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
@@ -178,17 +178,17 @@ class _AddEntryState extends State<AddEntry> {
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle:
-              TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.w600),
-          prefixIcon: Icon(icon, color: Colors.deepPurple),
+              TextStyle(color: Color(0xFF7CB8C0), fontWeight: FontWeight.w600),
+          prefixIcon: Icon(icon, color: Color(0xFF7CB8C0)),
           filled: true,
           fillColor: Colors.white,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
-            borderSide: BorderSide(color: Colors.deepPurple),
+            borderSide: BorderSide(color: Color(0xFF7CB8C0)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
-            borderSide: BorderSide(color: Colors.deepPurple, width: 2),
+            borderSide: BorderSide(color: Color(0xFF7CB8C0), width: 2),
           ),
         ),
         keyboardType: keyboardType,

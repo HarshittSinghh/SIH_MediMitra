@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_app/Drawer/MainDrawer.dart';
 import 'package:health_app/Login%20Page/login_sp.dart';
 import 'package:health_app/Screens/Intro_Home_Screen.dart';
 import 'package:health_app/Screens/chart.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'MediMitra',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+        primarySwatch: Colors.purple,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: LoginPage(),
@@ -62,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Color(0xFF7CB8C0),
         title: Text(
           'MediMitra',
           style: const TextStyle(
@@ -110,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      drawer: AppDrawer(),
+      drawer: MainDrawer(),
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -136,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.deepPurple,
+        selectedItemColor:Color(0xFF7CB8C0),
         unselectedItemColor: Colors.grey,
         backgroundColor: Colors.white,
         onTap: _onItemTapped,

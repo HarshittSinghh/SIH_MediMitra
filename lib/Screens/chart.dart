@@ -61,8 +61,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
             currentIndex: _selectedIndex,
             selectedItemColor: Colors.white,
-            backgroundColor: Colors.deepPurple,
-            unselectedItemColor: Colors.grey,
+            backgroundColor: Color(0xFF7CB8C0),
+            unselectedItemColor: Colors.grey.shade100,
             onTap: _onItemTapped,
           ),
           Expanded(

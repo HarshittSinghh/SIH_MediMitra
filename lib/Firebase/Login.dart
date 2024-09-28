@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:health_app/Screens/User_Screen/user_screen.dart';
 import 'package:health_app/home_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,12 +35,9 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _handleSignIn() async {
     try {
-      // Check if the user is already signed in
       if (_googleSignIn.currentUser != null) {
-        // If the user is already signed in, prompt to sign out or choose a different account
         await _googleSignIn.signOut();
       }
-      // Prompt the user to choose an account
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser != null) {
         final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
@@ -53,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
 
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => UserScreen(title: 'MediMitra',)),
+          MaterialPageRoute(builder: (context) => UserScreen(title: 'MediMitra')),
         );
       } else {
         print("Sign-in aborted by user");
@@ -62,7 +60,6 @@ class _LoginPageState extends State<LoginPage> {
       print("Sign-in error: $error");
     }
   }
-
   void _continueAsGuest() {
     Navigator.pushReplacement(
       context,
@@ -73,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple[50], 
+      backgroundColor: Color(0xFF7CB8C0),
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
@@ -81,98 +78,101 @@ class _LoginPageState extends State<LoginPage> {
             if (snapshot.hasData) {
               return MyHomePage(title: 'MediMitra');
             } else {
-              return Column(
-                children: [
-                  Expanded(
-                    flex: 8,
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        Image.network(
-                          'https://www.qupapp.com/assets/img/doctor-1.jpg',
-                          fit: BoxFit.cover,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    flex: 4,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Colors.deepPurple.shade50, Colors.purple.shade50],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
+              return Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.3), 
+                      Text(
+                        'MediMitra', 
+                        style: GoogleFonts.poppins(
+                          fontSize: 48.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
-                      child: Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Text(
-                              'Welcome to MediMitra',
-                              style: TextStyle(
-                                fontSize: 30.0,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.deepPurple,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(height: 20.0),
-                            ElevatedButton.icon(
-                              icon: Image.network(
-                                'https://static-00.iconduck.com/assets.00/google-icon-2048x2048-pks9lbdv.png',
-                                height: 24.0,
-                                width: 24.0,
-                              ),
-                              label: const Text(
-                                'Login with Google',
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.deepPurple,
-                                ),
-                              ),
-                              onPressed: _handleSignIn,
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: Size(250, 50),
-                                side: BorderSide(color: Colors.black),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                backgroundColor: Colors.white, 
-                              ),
-                            ),
-                            SizedBox(height: 20.0),
-                            ElevatedButton.icon(
-                              icon: Icon(
-                                Icons.person,
-                                size: 24.0,
-                                color: Colors.white,
-                              ),
-                              label: const Text(
-                                'Continue as Guest',
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              onPressed: _continueAsGuest,
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: Size(250, 50),
-                                backgroundColor: Colors.black,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                              ),
-                            ),
-                          ],
+                      SizedBox(height: 8.0),
+                      Text(
+                        'Your Health Companion',
+                        style: GoogleFonts.poppins(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white70,
                         ),
                       ),
-                    ),
+                      SizedBox(height: 60.0),
+                      Text(
+                        'Login as',
+                        style: GoogleFonts.poppins(
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 50.0),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: ElevatedButton.icon(
+                          icon: Image.network(
+                            'https://static-00.iconduck.com/assets.00/google-icon-2048x2048-pks9lbdv.png',
+                            height: 24.0,
+                            width: 24.0,
+                          ),
+                          label: const Text(
+                            'Continue with Google',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.deepPurple,
+                            ),
+                          ),
+                          onPressed: _handleSignIn,
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(double.infinity, 60),
+                            side: BorderSide(color: Colors.black),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            backgroundColor: Colors.white,
+                            shadowColor: Colors.black,
+                            elevation: 5,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20.0),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0), 
+                        child: ElevatedButton.icon(
+                          icon: const Icon(
+                            Icons.person,
+                            size: 24.0,
+                            color: Colors.white,
+                          ),
+                          label: const Text(
+                            'Continue as Guest',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          onPressed: _continueAsGuest,
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(double.infinity, 60),
+                            backgroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            shadowColor: Colors.black,
+                            elevation: 5,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                    ],
                   ),
-                ],
+                ),
               );
             }
           }

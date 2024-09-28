@@ -89,13 +89,13 @@ class _BotScreenState extends State<BotScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 200, 
+        toolbarHeight: 200,
         flexibleSpace: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(
-                  'https://scoop.market.us/wp-content/uploads/2023/10/ai-in-the-healthcare.jpg'), 
-              fit: BoxFit.cover, 
+                  'https://scoop.market.us/wp-content/uploads/2023/10/ai-in-the-healthcare.jpg'),
+              fit: BoxFit.cover,
             ),
           ),
         ),
@@ -159,13 +159,13 @@ class _BotScreenState extends State<BotScreen> {
                     const SizedBox(width: 10),
                     FloatingActionButton(
                       onPressed: sendMessage,
-                      backgroundColor: Colors.deepPurple,
+                      backgroundColor: Color(0xFF7CB8C0), // Updated button color
                       child: const Icon(Icons.send, color: Colors.white),
                     ),
                     const SizedBox(width: 10),
                     FloatingActionButton(
                       onPressed: _pickImage,
-                      backgroundColor: Colors.deepPurple,
+                      backgroundColor: Color(0xFF7CB8C0), // Updated button color
                       child: const Icon(Icons.image, color: Colors.white),
                     ),
                   ],
@@ -203,7 +203,7 @@ class Messages extends StatelessWidget {
         right: isUser ? 10 : 60,
       ),
       decoration: BoxDecoration(
-        color: isUser ? Colors.deepPurple : Colors.white,
+        color: isUser ? Color(0xFF7CB8C0) : Colors.white, // Updated color for user message
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
           bottomLeft: isUser ? Radius.circular(30) : Radius.zero,

@@ -12,7 +12,7 @@ class ReceiptScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Receipt'),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Color(0xFF7CB8C0), 
         foregroundColor: Colors.white,
       ),
       body: Center(
@@ -37,10 +37,12 @@ class ReceiptScreen extends StatelessWidget {
                 icon: Icon(Icons.exit_to_app),
                 label: Text('Exit'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurple,
-                  foregroundColor: Colors.white,  
+                  backgroundColor: Color(0xFF7CB8C0),
+                  foregroundColor: Colors.white,
                   textStyle: TextStyle(fontSize: 18),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
                 ),
               ),
             ],
@@ -56,9 +58,9 @@ class ReceiptScreen extends StatelessWidget {
       child: Text(
         '$label ${isBold ? value.toUpperCase() : value}',
         style: TextStyle(
-          fontSize: 25, 
+          fontSize: 25,
           fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-          color: isBold ? Colors.deepPurple : Colors.black, 
+          color: isBold ? Color(0xFF7CB8C0) : Colors.black,  
         ),
         textAlign: TextAlign.center,
       ),

@@ -89,7 +89,7 @@ class IntroHomeScreen extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.deepPurpleAccent,
+          color: Color(0xFF7CB8C0),
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Column(

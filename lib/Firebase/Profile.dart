@@ -183,7 +183,7 @@ class _ProfilePageState extends State<ProfilePage> {
       return Scaffold(
         backgroundColor: const Color.fromARGB(255, 238, 238, 238),
         appBar: AppBar(
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: Color(0xFF7CB8C0),
           foregroundColor: Colors.white,
           title: Text(
             "MediMitra",
@@ -225,7 +225,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 238, 238, 238),
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor:Color(0xFF7CB8C0),
         foregroundColor: Colors.white,
         title: Text(
           "MediMitra",
@@ -260,7 +260,7 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           children: [
             Container(
-              color: Colors.deepPurple,
+              color:Color(0xFF7CB8C0),
               padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
               child: Center(
                 child: Material(
@@ -302,7 +302,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ElevatedButton(
                     onPressed: _editProfile,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepPurple,
+                      backgroundColor:Color(0xFF7CB8C0),
                       foregroundColor: Colors.white,
                       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     ),
@@ -322,7 +322,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.phone, color: Colors.deepPurple),
+                        Icon(Icons.phone, color:Color(0xFF7CB8C0)),
                         SizedBox(width: 10),
                         Text(
                           'Contact Number:',
@@ -338,7 +338,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     SizedBox(height: 15),
                     Row(
                       children: [
-                        Icon(Icons.person, color: Colors.deepPurple),
+                        Icon(Icons.person, color:Color(0xFF7CB8C0)),
                         SizedBox(width: 10),
                         Text(
                           'Gender:',
@@ -354,7 +354,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     SizedBox(height: 15),
                     Row(
                       children: [
-                        Icon(Icons.cake, color: Colors.deepPurple),
+                        Icon(Icons.cake, color: Color(0xFF7CB8C0)),
                         SizedBox(width: 10),
                         Text(
                           'Date of Birth:',

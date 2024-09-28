@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'MediMitra',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+        primaryColor: Color(0xFF7CB8C0),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: LoginPage(),
@@ -56,8 +56,8 @@ class _UserScreenState extends State<UserScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
-        title: Text(
+        backgroundColor: Color(0xFF7CB8C0),
+        title: const Text(
           'MediMitra',
           style: const TextStyle(
             color: Colors.white,
@@ -88,7 +88,7 @@ class _UserScreenState extends State<UserScreen> {
               );
             },
           ),
-           IconButton(
+          IconButton(
             icon: const Icon(
               Icons.person,
               color: Colors.white,
@@ -120,7 +120,7 @@ class _UserScreenState extends State<UserScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.deepPurple,
+        selectedItemColor: Color(0xFF7CB8C0), 
         unselectedItemColor: Colors.grey,
         backgroundColor: Colors.white,
         onTap: _onItemTapped,

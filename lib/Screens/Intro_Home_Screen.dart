@@ -98,7 +98,7 @@ class IntroHomeScreen extends StatelessWidget {
                     child: GridView.count(
                       shrinkWrap: true,
                       physics:
-                          const ClampingScrollPhysics(), // Changed to allow proper scrolling within SingleChildScrollView
+                          const ClampingScrollPhysics(),
                       crossAxisCount: 2,
                       crossAxisSpacing: 16,
                       mainAxisSpacing: 16,
@@ -125,7 +125,7 @@ class IntroHomeScreen extends StatelessWidget {
                         ListView(
                           shrinkWrap: true,
                           physics:
-                              const ClampingScrollPhysics(), // Adjusted for proper behavior within Column
+                              const ClampingScrollPhysics(),
                           padding: EdgeInsets.all(8.0),
                           children: [
                             // First Card

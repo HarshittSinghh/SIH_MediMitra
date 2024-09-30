@@ -26,8 +26,7 @@ class IntroHomeScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(15),
                               image: DecorationImage(
                                 image: AssetImage('assets/img/banner2.png'),
-                                fit: BoxFit
-                                    .contain,
+                                fit: BoxFit.contain,
                               ),
                             ),
                           ),
@@ -41,8 +40,7 @@ class IntroHomeScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(15),
                               image: DecorationImage(
                                 image: AssetImage('assets/img/banner3.png'),
-                                fit: BoxFit
-                                    .contain, 
+                                fit: BoxFit.contain,
                               ),
                             ),
                           ),
@@ -97,14 +95,15 @@ class IntroHomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(16.0),
                     child: GridView.count(
                       shrinkWrap: true,
-                      physics:
-                          const ClampingScrollPhysics(),
+                      physics: const ClampingScrollPhysics(),
                       crossAxisCount: 2,
                       crossAxisSpacing: 16,
                       mainAxisSpacing: 16,
                       children: [
-                        _buildGridItem(Icons.policy, 'Policies'),
-                        _buildGridItem(Icons.article, 'Hospitals'),
+                        _buildGridItem(Icons.policy, 'Health Policies'),
+                        _buildGridItem(Icons.local_hospital, 'Hospitals'),
+                        _buildGridItem(Icons.stacked_bar_chart, 'Reports'),
+                        _buildGridItem(Icons.business, 'Departments'),
                       ],
                     ),
                   ),
@@ -124,8 +123,7 @@ class IntroHomeScreen extends StatelessWidget {
                       children: [
                         ListView(
                           shrinkWrap: true,
-                          physics:
-                              const ClampingScrollPhysics(),
+                          physics: const ClampingScrollPhysics(),
                           padding: EdgeInsets.all(8.0),
                           children: [
                             // First Card
